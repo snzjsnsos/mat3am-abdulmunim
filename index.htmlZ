@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <link rel="apple-touch-icon" href="IMG_7024.jpeg">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#0b0b0b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="مطعم عبد المنعم">
+
+<title>مطعم عبد المنعم</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+    background:#f5f5f5;
+    color:#171717;
+}
+
+header{
+    background:#090909;
+    color:white;
+    padding:18px 16px;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    width:58px;
+    height:58px;
+    border:2px solid #d5a735;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:#d5a735;
+    font-weight:bold;
+    font-size:11px;
+}
+
+.brand h2{
+    margin:0;
+}
+
+.brand p{
+    margin:4px 0 0;
+    color:#aaa;
+    font-size:13px;
+}
+
+main{
+    max-width:850px;
+    margin:auto;
+    padding:15px 14px 100px;
+}
+
+.hero{
+    background:#090909;
+    color:white;
+    border-radius:22px;
+    padding:25px 20px;
+    margin-bottom:20px;
+}
+
+.hero small{
+    color:#d5a735;
+    font-weight:bold;
+}
+
+.hero h1{
+    margin:8px 0;
+    font-size:30px;
+}
+
+.hero p{
+    color:#ccc;
+    margin:0;
+}
+
+.section-title{
+    margin:22px 0 12px;
+}
+
+.categories{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    padding-bottom:8px;
+}
+
+.category{
+    min-width:85px;
+    padding:12px 8px;
+    border:0;
+    border-radius:15px;
+    background:white;
+    font-weight:bold;
+    box-shadow:0 2px 8px #0001;
+}
+
+.category.active{
+    background:#d5a735;
+    color:#111;
+}
+
+.menu{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.product{
+    background:white;
+    border-radius:18px;
+    padding:10px;
+    box-shadow:0 3px 12px #0001;
+}
+
+.product-image{
+    height:115px;
+    border-radius:14px;
+    background:linear-gradient(135deg,#222,#666);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:55px;
+}
+
+.product h3{
+    margin:10px 0 4px;
+    font-size:17px;
+}
+
+.description{
+    font-size:12px;
+    color:#777;
+    min-height:34px;
+}
+
+.price{
+    color:#a8750e;
+    font-weight:bold;
+    margin:8px 0;
+}
+
+button{
+    font-family:inherit;
+    cursor:pointer;
+}
+
+.add{
+    width:100%;
+    border:0;
+    background:#111;
+    color:white;
+    padding:11px;
+    border-radius:11px;
+    font-weight:bold;
+}
+
+.add:active{
+    transform:scale(.97);
+}
+
+.bottom{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:68px;
+    background:white;
+    border-top:1px solid #ddd;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:20;
+}
+
+.bottom button{
+    border:0;
+    background:none;
+    font-size:12px;
+}
+
+.bottom span{
+    display:block;
+    font-size:23px;
+    margin-bottom:2px;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#0008;
+    z-index:100;
+}
+
+.sheet{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    max-height:92vh;
+    overflow:auto;
+    background:white;
+    border-radius:25px 25px 0 0;
+    padding:20px;
+}
+
+.close{
+    float:left;
+    border:0;
+    background:#eee;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    font-size:18px;
+}
+
+.cart-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 0;
+    border-bottom:1px solid #eee;
+}
+
+.cart-row .emoji{
+    font-size:35px;
+}
+
+.cart-info{
+    flex:1;
+}
+
+.qty{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.qty button{
+    border:0;
+    background:#eee;
+    width:30px;
+    height:30px;
+    border-radius:8px;
+}
+
+.total{
+    font-size:20px;
+    font-weight:bold;
+    margin:15px 0;
+}
+
+.primary{
+    width:100%;
+    background:#d5a735;
+    border:0;
+    padding:14px;
+    border-radius:13px;
+    font-weight:bold;
+    font-size:16px;
+}
+
+input,textarea,select{
+    width:100%;
+    padding:13px;
+    border:1px solid #ddd;
+    border-radius:11px;
+    margin:6px 0 12px;
+    font-family:inherit;
+    font-size:15px;
+}
+
+.order{
+    background:#f7f7f7;
+    padding:15px;
+    border-radius:15px;
+    margin:10px 0;
+}
+
+.status{
+    display:inline-block;
+    background:#e9dfc2;
+    color:#765600;
+    padding:6px 10px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.empty{
+    text-align:center;
+    padding:50px 10px;
+    color:#777;
+}
+
+@media(max-width:420px){
+    .menu{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .product-image{
+        height:100px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">
+        <div class="logo">
+            عبد<br>المنعم
+        </div>
+
+        <div>
+            <h2>مطعم عبد المنعم</h2>
+            <p>بيجي - صلاح الدين</p>
+        </div>
+    </div>
+</header>
+
+<main>
+
+    <section class="hero">
+        <small>🔥 عرض اليوم</small>
+        <h1>أشهى الوجبات<br>بنكهة عبد المنعم</h1>
+        <p>اطلب الآن والتوصيل داخل بيجي</p>
+    </section>
+
+    <h2 class="section-title">الأقسام</h2>
+
+    <div class="categories" id="categories"></div>
+
+    <h2 class="section-title">المنيو</h2>
+
+    <div class="menu" id="menu"></div>
+
+</main>
+
+<nav class="bottom">
+    <button onclick="home()">
+        <span>🏠</span>
+        الرئيسية
+    </button>
+
+    <button onclick="openCart()">
+        <span>🛒</span>
+        السلة <b id="cartCount"></b>
+    </button>
+
+    <button onclick="openOrders()">
+        <span>📦</span>
+        طلباتي
+    </button>
+
+    <button onclick="openInfo()">
+        <span>ℹ️</span>
+        معلومات
+    </button>
+</nav>
+
+<div class="modal" id="modal">
+    <div class="sheet" id="sheet"></div>
+</div>
+
+<script>
+
+const products = [
+
+{
+id:1,
+name:"برغر لحم",
+price:8000,
+emoji:"🍔",
+category:"برغر",
+description:"لحم مشوي مع الجبن والخس والطماطم"
+},
+
+{
+id:2,
+name:"وجبة دجاج مشوي",
+price:14000,
+emoji:"🍗",
+category:"وجبات",
+description:"دجاج مشوي مع البطاطا والصوص"
+},
+
+{
+id:3,
+name:"بيتزا دجاج",
+price:13000,
+emoji:"🍕",
+category:"بيتزا",
+description:"بيتزا دجاج بالجبن والخضار"
+},
+
+{
+id:4,
+name:"بطاطا مقلية",
+price:6000,
+emoji:"🍟",
+category:"مقبلات",
+description:"بطاطا مقرمشة ولذيذة"
+},
+
+{
+id:5,
+name:"بيبسي",
+price:2000,
+emoji:"🥤",
+category:"مشروبات",
+description:"مشروب غازي بارد"
+},
+
+{
+id:6,
+name:"وجبة برغر كاملة",
+price:12000,
+emoji:"🍔",
+category:"برغر",
+description:"برغر مع بطاطا ومشروب"
+}
+
+];
+
+let cart = JSON.parse(localStorage.getItem("abdulmunim_cart") || "[]");
+
+let selectedCategory="الكل";
+
+function money(number){
+    return Number(number).toLocaleString("ar-IQ")+" د.ع";
+}
+
+function saveCart(){
+    localStorage.setItem(
+        "abdulmunim_cart",
+        JSON.stringify(cart)
+    );
+
+    updateCartCount();
+}
+
+function updateCartCount(){
+
+    const count=cart.reduce(
+        (sum,item)=>sum+item.quantity,
+        0
+    );
+
+    document.getElementById("cartCount").textContent =
+        count ? `(${count})` : "";
+}
+
+function renderCategories(){
+
+    const categories=[
+        ["الكل","🍽️"],
+        ["برغر","🍔"],
+        ["بيتزا","🍕"],
+        ["وجبات","🍗"],
+        ["مقبلات","🍟"],
+        ["مشروبات","🥤"]
+    ];
+
+    document.getElementById("categories").innerHTML =
+        categories.map(c=>`
+
+        <button
+            class="category ${selectedCategory===c[0]?"active":""}"
+            onclick="selectCategory('${c[0]}')">
+
+            ${c[1]}<br>
+            ${c[0]}
+
+        </button>
+
+        `).join("");
+}
+
+function selectCategory(category){
+
+    selectedCategory=category;
+
+    renderCategories();
+    renderProducts();
+}
+
+function renderProducts(){
+
+    const list=
+        selectedCategory==="الكل"
+        ? products
+        : products.filter(
+            p=>p.category===selectedCategory
+        );
+
+    document.getElementById("menu").innerHTML =
+        list.map(p=>`
+
+        <article class="product">
+
+            <div class="product-image">
+                ${p.emoji}
+            </div>
+
+            <h3>${p.name}</h3>
+
+            <div class="description">
+                ${p.description}
+            </div>
+
+            <div class="price">
+                ${money(p.price)}
+            </div>
+
+            <button
+                class="add"
+                onclick="addToCart(${p.id})">
+
+                إضافة للسلة 🛒
+
+            </button>
+
+        </article>
+
+        `).join("");
+}
+
+function addToCart(id){
+
+    const product=products.find(p=>p.id===id);
+
+    const existing=cart.find(
+        item=>item.id===id
+    );
+
+    if(existing){
+        existing.quantity++;
+    }else{
+        cart.push({
+            id:product.id,
+            name:product.name,
+            price:product.price,
+            emoji:product.emoji,
+            quantity:1
+        });
+    }
+
+    saveCart();
+
+    openCart();
+}
+
+function changeQuantity(id,amount){
+
+    const item=cart.find(
+        x=>x.id===id
+    );
+
+    if(!item)return;
+
+    item.quantity+=amount;
+
+    if(item.quantity<=0){
+        cart=cart.filter(
+            x=>x.id!==id
+        );
+    }
+
+    saveCart();
+
+    openCart();
+}
+
+function cartTotal(){
+
+    return cart.reduce(
+        (sum,item)=>
+            sum+(item.price*item.quantity),
+        0
+    );
+}
+
+function openCart(){
+
+    if(cart.length===0){
+
+        openModal(`
+            <button class="close" onclick="closeModal()">×</button>
+
+            <h2>🛒 السلة</h2>
+
+            <div class="empty">
+                <div style="font-size:50px">🛒</div>
+                <h3>السلة فارغة</h3>
+                <p>أضف بعض الوجبات أولاً.</p>
+            </div>
+        `);
+
+        return;
+    }
+
+    let html=`
+        <button class="close" onclick="closeModal()">×</button>
+
+        <h2>🛒 سلة الطلب</h2>
+    `;
+
+    cart.forEach(item=>{
+
+        html+=`
+
+        <div class="cart-row">
+
+            <div class="emoji">
+                ${item.emoji}
+            </div>
+
+            <div class="cart-info">
+
+                <b>${item.name}</b>
+
+                <div>
+                    ${money(item.price)}
+                </div>
+
+            </div>
+
+            <div class="qty">
+
+                <button
+                    onclick="changeQuantity(${item.id},1)">
+                    +
+                </button>
+
+                <b>${item.quantity}</b>
+
+                <button
+                    onclick="changeQuantity(${item.id},-1)">
+                    -
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+    });
+
+    const subtotal=cartTotal();
+    const delivery=2000;
+
+    html+=`
+
+        <div class="total">
+            المجموع: ${money(subtotal)}
+        </div>
+
+        <div>
+            التوصيل: ${money(delivery)}
+        </div>
+
+        <div class="total">
+            الإجمالي: ${money(subtotal+delivery)}
+        </div>
+
+        <button
+            class="primary"
+            onclick="checkout()">
+
+            إتمام الطلب
+
+        </button>
+    `;
+
+    openModal(html);
+}
+
+function checkout(){
+
+    openModal(`
+
+        <button class="close" onclick="openCart()">×</button>
+
+        <h2>📦 تأكيد الطلب</h2>
+
+        <label>الاسم</label>
+
+        <input
+            id="customerName"
+            placeholder="اسمك">
+
+        <label>رقم الهاتف</label>
+
+        <input
+            id="phone"
+            type="tel"
+            placeholder="07xxxxxxxxx">
+
+        <label>العنوان</label>
+
+        <textarea
+            id="address"
+            rows="3"
+            placeholder="العنوان بالتفصيل داخل بيجي"></textarea>
+
+        <label>طريقة الدفع</label>
+
+        <select id="payment">
+
+            <option>
+                الدفع عند الاستلام
+            </option>
+
+            <option>
+                الدفع الإلكتروني
+            </option>
+
+        </select>
+
+        <button
+            class="primary"
+            onclick="placeOrder()">
+
+            تأكيد وإرسال الطلب 🚀
+
+        </button>
+
+    `);
+}
+
+function placeOrder(){
+
+    const name=
+        document.getElementById("customerName").value.trim();
+
+    const phone=
+        document.getElementById("phone").value.trim();
+
+    const address=
+        document.getElementById("address").value.trim();
+
+    const payment=
+        document.getElementById("payment").value;
+
+    if(!name || !phone || !address){
+
+        alert("يرجى إدخال الاسم ورقم الهاتف والعنوان");
+
+        return;
+    }
+
+    const orders=
+        JSON.parse(
+            localStorage.getItem("abdulmunim_orders") || "[]"
+        );
+
+    const order={
+
+        id:
+            Math.floor(
+                100000+
+                Math.random()*900000
+            ),
+
+        name:name,
+
+        phone:phone,
+
+        address:address,
+
+        payment:payment,
+
+        items:[...cart],
+
+        subtotal:cartTotal(),
+
+        delivery:2000,
+
+        total:cartTotal()+2000,
+
+        status:"تم استلام الطلب",
+
+        date:new Date().toLocaleString("ar-IQ")
+
+    };
+
+    orders.unshift(order);
+
+    localStorage.setItem(
+        "abdulmunim_orders",
+        JSON.stringify(orders)
+    );
+
+    cart=[];
+
+    saveCart();
+
+    openModal(`
+
+        <div style="text-align:center">
+
+            <div style="font-size:70px">
+                ✅
+            </div>
+
+            <h2>تم إرسال طلبك بنجاح</h2>
+
+            <p>
+                رقم الطلب
+            </p>
+
+            <h1>
+                #${order.id}
+            </h1>
+
+            <p>
+                احتفظ برقم الطلب لمتابعته.
+            </p>
+
+            <button
+                class="primary"
+                onclick="openOrders()">
+
+                متابعة الطلب
+
+            </button>
+
+        </div>
+
+    `);
+}
+
+function openOrders(){
+
+    const orders=
+        JSON.parse(
+            localStorage.getItem("abdulmunim_orders") || "[]"
+        );
+
+    let html=`
+
+        <button class="close" onclick="closeModal()">×</button>
+
+        <h2>📦 طلباتي</h2>
+
+    `;
+
+    if(orders.length===0){
+
+        html+=`
+
+        <div class="empty">
+
+            <div style="font-size:50px">
+                📦
+            </div>
+
+            <h3>لا توجد طلبات</h3>
+
+        </div>
+
+        `;
+
+    }else{
+
+        orders.forEach(order=>{
+
+            html+=`
+
+            <div class="order">
+
+                <h3>
+                    طلب #${order.id}
+                </h3>
+
+                <span class="status">
+                    ${order.status}
+                </span>
+
+                <p>
+                    الإجمالي:
+                    <b>${money(order.total)}</b>
+                </p>
+
+                <p>
+                    العنوان:
+                    ${order.address}
+                </p>
+
+                <small>
+                    ${order.date}
+                </small>
+
+            </div>
+
+            `;
+
+        });
+
+    }
+
+    openModal(html);
+}
+
+function openInfo(){
+
+    openModal(`
+
+        <button class="close" onclick="closeModal()">×</button>
+
+        <div style="text-align:center">
+
+            <div class="logo"
+                 style="margin:auto;background:#090909">
+
+                عبد<br>المنعم
+
+            </div>
+
+            <h2>مطعم عبد المنعم</h2>
+
+            <p>
+                📍 بيجي - صلاح الدين
+            </p>
+
+            <p>
+                🍔 وجبات • برغر • بيتزا • مشروبات
+            </p>
+
+            <p>
+                🚚 توصيل داخل بيجي
+            </p>
+
+            <hr>
+
+            <p>
+                أهلاً وسهلاً بكم ❤️
+            </p>
+
+        </div>
+
+    `);
+}
+
+function openModal(html){
+
+    document.getElementById("sheet").innerHTML=html;
+
+    document.getElementById("modal").style.display="block";
+}
+
+function closeModal(){
+
+    document.getElementById("modal").style.display="none";
+}
+
+function home(){
+
+    closeModal();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+document.getElementById("modal").addEventListener(
+    "click",
+    function(e){
+
+        if(e.target===this){
+            closeModal();
+        }
+
+    }
+);
+
+renderCategories();
+renderProducts();
+updateCartCount();
+
+</script>
+
+</body>
+</html>
